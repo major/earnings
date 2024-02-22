@@ -16,9 +16,7 @@ WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
 def send_message(report):
     """Publish a Discord message based on the earnings report."""
-    webhook = DiscordWebhook(
-        url=WEBHOOK_URL, username="EarningsBot", rate_limit_retry=True
-    )
+    webhook = DiscordWebhook(url=WEBHOOK_URL, username="EarningsBot", rate_limit_retry=True)
     embed = DiscordEmbed(
         title=report.title,
         color=report.color,

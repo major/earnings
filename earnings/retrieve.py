@@ -3,6 +3,7 @@
 import logging
 import sys
 from operator import itemgetter
+from typing import Optional
 
 import requests
 
@@ -10,7 +11,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 
-def get_page(max_message_id=None):
+def get_page(max_message_id: Optional[int] = None) -> list:
     """Get a page of earnings results from StockTwits.
 
     Args:
@@ -20,9 +21,7 @@ def get_page(max_message_id=None):
         list: List of messages from StockTwits.
     """
     stocktwits_url = "https://api.stocktwits.com/api/2/streams/user/epsguid.json"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:122.0) Gecko/20100101 Firefox/122.0"
-    }
+    headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:122.0) Gecko/20100101 Firefox/122.0"}
 
     params = {"filter": "all", "limit": 49}
 
@@ -36,7 +35,7 @@ def get_page(max_message_id=None):
     return sorted(resp.json()["messages"], key=itemgetter("id"), reverse=True)
 
 
-def build_queue(last_message_id=None):
+def build_queue(last_message_id: Optional[int] = None) -> list:
     """Build a queue of messages to process.
 
     Args:

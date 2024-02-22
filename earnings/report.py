@@ -11,12 +11,12 @@ class Report:
     message: dict
 
     @property
-    def body(self):
+    def body(self) -> str:
         """Get the body of the message."""
         return self.message["body"]
 
     @property
-    def consensus(self):
+    def consensus(self) -> int:
         """Return analyst consensus."""
         regex = r"consensus was \(*\$?([0-9.]+)\)*"
         result = re.search(regex, self.body)
@@ -28,12 +28,12 @@ class Report:
         consensus = result.group(1)
         # Check if the original string had parentheses, indicating a loss.
         if "(" in result.group(0):
-            return float(f"-{consensus}") * 100
+            return int(float(f"-{consensus}") * 100)
 
-        return float(consensus) * 100
+        return int(float(consensus) * 100)
 
     @property
-    def earnings(self):
+    def earnings(self) -> int:
         """Return the earnings."""
         regex = r"reported (?:earnings of )?\$([0-9\.]+)|(?:a loss of )?\$([0-9\.]+)"
         result = re.search(regex, self.body)
@@ -42,14 +42,14 @@ class Report:
             # Check which group was matched to determine if it's a loss or gain.
             earnings, loss = result.groups()
             if loss:
-                return float(f"-{loss}") * 100
+                return int(float(f"-{loss}") * 100)
             elif earnings:
-                return float(earnings) * 100
+                return int(float(earnings) * 100)
 
         return None
 
     @property
-    def ticker(self):
+    def ticker(self) -> str:
         """Return the ticker symbol."""
         return self.message["symbols"][0]["symbol"]
 
@@ -65,7 +65,7 @@ class Report:
         return False
 
     @property
-    def color(self):
+    def color(self) -> str:
         """Return a color for the Discord message."""
         if self.winner is None:
             return "aaaaaa"
@@ -76,7 +76,7 @@ class Report:
         return "d42020"
 
     @property
-    def logo(self):
+    def logo(self) -> str:
         """Return a URL for the company logo."""
         url_base = "https://s3.amazonaws.com/logos.atom.finance/stocks-and-funds"
         return f"{url_base}/{self.ticker}.png"
