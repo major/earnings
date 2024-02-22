@@ -48,6 +48,8 @@ if __name__ == "__main__":
     # Process the queue.
     for message in queue:
         report = Report(message)
+        if report.earnings is None:
+            continue
         logging.info(f"Processing {report.ticker}...")
         send_message(report)
 

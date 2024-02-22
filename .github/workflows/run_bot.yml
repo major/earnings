@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --only main
 
-      - name: Get the latest models
+      - name: Get the latest earnings results
         run: poetry run python earnings/run.py
         env:
           PYTHONUNBUFFERED: 1
