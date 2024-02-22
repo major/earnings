@@ -2,6 +2,7 @@
 
 import re
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
@@ -16,7 +17,7 @@ class Report:
         return self.message["body"]
 
     @property
-    def consensus(self) -> int:
+    def consensus(self) -> Optional[int]:
         """Return analyst consensus."""
         regex = r"consensus was \(*\$?([0-9.]+)\)*"
         result = re.search(regex, self.body)
@@ -33,7 +34,7 @@ class Report:
         return int(float(consensus) * 100)
 
     @property
-    def earnings(self) -> int:
+    def earnings(self) -> Optional[int]:
         """Return the earnings."""
         regex = r"reported (?:earnings of )?\$([0-9\.]+)|(?:a loss of )?\$([0-9\.]+)"
         result = re.search(regex, self.body)
@@ -84,4 +85,15 @@ class Report:
     @property
     def title(self) -> str:
         """Generate a title for the Discord message."""
-        return f"{self.ticker}: ${self.earnings/100:.2f} vs. ${self.consensus/100:.2f} expected"
+        earnings = self.earnings
+        consensus = self.consensus
+
+        earnings_str = "Earnings not found"
+        if earnings is not None:
+            earnings_str = f"${earnings/100:.2f}"
+
+        consensus_str = "Consensus not found"
+        if consensus is not None:
+            consensus_str = f"${consensus/100:.2f}"
+
+        return f"{self.ticker}: {earnings_str} vs. {consensus_str} expected"
