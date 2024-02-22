@@ -22,14 +22,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install poetru
-        run: pipx install poetry
-
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: poetry
+
+      - name: Install poetry
+        run: pip install poetry
 
       - name: Install dependencies
         run: poetry install --only main
