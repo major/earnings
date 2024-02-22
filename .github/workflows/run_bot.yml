@@ -38,6 +38,7 @@ jobs:
         run: poetry run python earnings/run.py
         env:
           PYTHONUNBUFFERED: 1
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
 
       - name: Commit and push if it changed
         run: |-
