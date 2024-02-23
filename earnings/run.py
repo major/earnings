@@ -4,17 +4,20 @@ import logging
 import os
 import sys
 
+import requests
 from discord_webhook import DiscordEmbed, DiscordWebhook
+
+from earnings.report import Report
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 log = logging.getLogger(__name__)
 
 # The Discord webhook URL where messages should be sent. For threads, append
 # ?thread_id=1234567890 to the end of the URL.
-WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
+WEBHOOK_URL = os.environ.get("WEBHOOK_URL", "LOL NOPE")
 
 
-def send_message(report):
+def send_message(report: Report) -> requests.Response:
     """Publish a Discord message based on the earnings report."""
     webhook = DiscordWebhook(url=WEBHOOK_URL, username="EarningsBot", rate_limit_retry=True)
     embed = DiscordEmbed(
@@ -22,7 +25,7 @@ def send_message(report):
         color=report.color,
     )
     embed.set_author(
-        name=report.message["symbols"][0]["title"],
+        name=report.name,
         url=f"https://finance.yahoo.com/quote/{report.ticker}/",
         icon_url=report.logo,
     )
@@ -31,12 +34,11 @@ def send_message(report):
 
 
 if __name__ == "__main__":
-    from earnings.report import Report
     from earnings.retrieve import build_queue
 
     # Get the last message ID from the file.
     with open("last_message_id.txt", encoding="utf8") as fileh:
-        last_message_id = int(fileh.read())
+        last_message_id = int(fileh.read().strip())
 
     # Build a queue of messages to process.
     queue = build_queue(last_message_id)
@@ -57,4 +59,4 @@ if __name__ == "__main__":
 
     # Save the last message ID to a file.
     with open("last_message_id.txt", "w") as f:
-        f.write(str(last_message))
+        f.write(str(last_message) + "\n")

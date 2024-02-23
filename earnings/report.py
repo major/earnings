@@ -1,8 +1,9 @@
 """Object for the earnings report."""
 
+import functools
 import re
 from dataclasses import dataclass
-from typing import Optional
+from typing import Dict, Optional
 
 
 @dataclass
@@ -11,12 +12,12 @@ class Report:
 
     message: dict
 
-    @property
+    @functools.cached_property
     def body(self) -> str:
         """Get the body of the message."""
-        return self.message["body"]
+        return str(self.message["body"])
 
-    @property
+    @functools.cached_property
     def consensus(self) -> Optional[int]:
         """Return analyst consensus."""
         regex = r"consensus was \(*\$?([0-9.]+)\)*"
@@ -33,7 +34,7 @@ class Report:
 
         return int(float(consensus) * 100)
 
-    @property
+    @functools.cached_property
     def earnings(self) -> Optional[int]:
         """Return the earnings."""
         regex = r"reported (?:earnings of )?\$([0-9\.]+)|(?:a loss of )?\$([0-9\.]+)"
@@ -49,15 +50,33 @@ class Report:
 
         return None
 
+    @functools.cached_property
+    def symbol(self) -> Dict[str, str]:
+        """Return the symbol dict of the company."""
+        default = {
+            "symbol": "N/A",
+            "title": "Unknown",
+        }
+
+        symbols = self.message.get("symbols", [default])
+        symbol = symbols[0]
+
+        return dict(symbol)
+
+    @property
+    def name(self) -> str:
+        """Return the name of the company."""
+        return self.symbol["title"]
+
     @property
     def ticker(self) -> str:
         """Return the ticker symbol."""
-        return self.message["symbols"][0]["symbol"]
+        return self.symbol["symbol"]
 
     @property
-    def winner(self):
+    def winner(self) -> Optional[bool]:
         """Return the winner of the earnings report."""
-        if not self.consensus:
+        if self.consensus is None or self.earnings is None:
             return None
 
         if self.earnings > self.consensus:
@@ -85,15 +104,12 @@ class Report:
     @property
     def title(self) -> str:
         """Generate a title for the Discord message."""
-        earnings = self.earnings
-        consensus = self.consensus
+        earnings = "Earnings not found"
+        if self.earnings is not None:
+            earnings = f"${self.earnings/100:.2f}"
 
-        earnings_str = "Earnings not found"
-        if earnings is not None:
-            earnings_str = f"${earnings/100:.2f}"
+        consensus = "Consensus not found"
+        if self.consensus is not None:
+            consensus = f"${self.consensus/100:.2f}"
 
-        consensus_str = "Consensus not found"
-        if consensus is not None:
-            consensus_str = f"${consensus/100:.2f}"
-
-        return f"{self.ticker}: {earnings_str} vs. {consensus_str} expected"
+        return f"{self.ticker}: {earnings} vs. {consensus} expected"
