@@ -50,8 +50,12 @@ if __name__ == "__main__":
     # Process the queue.
     for message in queue:
         report = Report(message)
-        if report.earnings is None:
+
+        # If the earnings data or consensus data is missing, skip the report. This is
+        # likely a company we aren't interested in.
+        if "not found" in report.title:
             continue
+
         logging.info(f"Processing {report.ticker}...")
         send_message(report)
 
