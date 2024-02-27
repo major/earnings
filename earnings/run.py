@@ -5,7 +5,7 @@ import os
 import sys
 
 import requests
-from discord_webhook import DiscordEmbed, DiscordWebhook
+from discord_webhook import DiscordWebhook
 
 from earnings.report import Report
 

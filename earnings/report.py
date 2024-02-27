@@ -112,6 +112,4 @@ class Report:
         if self.consensus is not None:
             consensus = f"{self.consensus/100:.2f}"
 
-        return (
-            f"{self.emoji} {self.ticker:<5} {earnings:>6} {consensus:>6}  {self.name}"
-        )
+        return f"{self.emoji} {self.ticker:<5} {earnings:>6} {consensus:>6}  {self.name}"
