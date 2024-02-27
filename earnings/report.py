@@ -85,15 +85,15 @@ class Report:
         return False
 
     @property
-    def color(self) -> str:
+    def emoji(self) -> str:
         """Return a color for the Discord message."""
         if self.winner is None:
-            return "aaaaaa"
+            return "⚪"
 
         if self.winner:
-            return "008000"
+            return "🟢"
 
-        return "d42020"
+        return "🔴"
 
     @property
     def logo(self) -> str:
@@ -106,10 +106,12 @@ class Report:
         """Generate a title for the Discord message."""
         earnings = "Earnings not found"
         if self.earnings is not None:
-            earnings = f"${self.earnings/100:.2f}"
+            earnings = f"{self.earnings/100:.2f}"
 
         consensus = "Consensus not found"
         if self.consensus is not None:
-            consensus = f"${self.consensus/100:.2f}"
+            consensus = f"{self.consensus/100:.2f}"
 
-        return f"{self.ticker}: {earnings} vs. {consensus} expected"
+        return (
+            f"{self.emoji} {self.ticker:<5} {earnings:>6} {consensus:>6}  {self.name}"
+        )
