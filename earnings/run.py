@@ -43,7 +43,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # Set up a list to hold discord messages starting with a header.
-    discord_messages = ["           EPS    Exp"]
+    discord_messages = []
 
     # Process the queue.
     for message in queue:
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         logging.info("Processing %s...", report.ticker)
         discord_messages.append(report.title)
 
-    if len(discord_messages) > 1:
+    if len(discord_messages) > 0:
         send_message(discord_messages)
 
     last_message = max([x["id"] for x in queue])
