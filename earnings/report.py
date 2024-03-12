@@ -106,10 +106,10 @@ class Report:
         """Generate a title for the Discord message."""
         earnings = "Earnings not found"
         if self.earnings is not None:
-            earnings = f"{self.earnings/100:.2f}"
+            earnings = f"{self.earnings / 100:.2f}"
 
         consensus = "Consensus not found"
         if self.consensus is not None:
-            consensus = f"{self.consensus/100:.2f}"
+            consensus = f"{self.consensus / 100:.2f}"
 
         return f"{self.emoji} {self.ticker:<5} {earnings:>6} {consensus:>6}  {self.name}"
