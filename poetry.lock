@@ -170,26 +170,20 @@ files = [
 
 [[package]]
 name = "deptry"
-version = "0.16.1"
+version = "0.13.0"
 description = "A command line utility to check for unused, missing and transitive dependencies in a Python project."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.8,<4.0"
 files = [
-    {file = "deptry-0.16.1-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:29ed8ae61b8f5664dd484717c79eef7ec66d965940efd828fca0d3c09220a1db"},
-    {file = "deptry-0.16.1-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:738a772b538f51e9a7bb8d5cb9a61cfea8794a79371d171919b01cff0dc895bf"},
-    {file = "deptry-0.16.1-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:56b78f7c860def8000e93f88345a24809f1b91e2f7836ac9a08285cb405e2762"},
-    {file = "deptry-0.16.1-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c3e86a04ea87ddece0f68ba204feb950f588205808c8320e6628300f03ff66dc"},
-    {file = "deptry-0.16.1-cp38-abi3-win_amd64.whl", hash = "sha256:01b5098739a56c93f3e1e40efec5f20452f22a9a8436a59809d46201fcb94bcf"},
-    {file = "deptry-0.16.1-pp310-pypy310_pp73-macosx_10_12_x86_64.whl", hash = "sha256:7e29dc4c1bbb933c9482e8cef85fafe2be7f46aeb90a8a07ba5f2b22af60876f"},
-    {file = "deptry-0.16.1-pp310-pypy310_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d8dfab68c247566c87a40f55f405be8549ffe4cea0b9b5384b7ae73a6f1d5cd1"},
-    {file = "deptry-0.16.1-pp310-pypy310_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1228493926b6e59cd2df7cb6016e10c255553cc31db24edcf7fc8d5474b81be6"},
-    {file = "deptry-0.16.1-pp310-pypy310_pp73-win_amd64.whl", hash = "sha256:99c3ac60b78ad1b8fb9844c25393e7ebc969cc950601ce3c050f56d196da5a79"},
-    {file = "deptry-0.16.1.tar.gz", hash = "sha256:39fb62da4a8f4d17ed282310f7bcaadec55a95a8c471b01e0fcdf5351a7ac323"},
+    {file = "deptry-0.13.0-py3-none-any.whl", hash = "sha256:edee5124fbb443b3726f251d7763977237e764969d49f695cf2be43536848177"},
+    {file = "deptry-0.13.0.tar.gz", hash = "sha256:37e0277d1b7cfd94b69d502995b2e4397445a94ffb9a840d1fac3cfa3b1e387b"},
 ]
 
 [package.dependencies]
-click = ">=8.0.0,<9"
+chardet = ">=4.0.0"
+click = ">=8.0.0,<9.0.0"
 colorama = {version = ">=0.4.6", markers = "sys_platform == \"win32\""}
+pathspec = ">=0.9.0"
 
 [[package]]
 name = "discord-webhook"
@@ -488,6 +482,17 @@ files = [
 ]
 
 [[package]]
+name = "pathspec"
+version = "0.12.1"
+description = "Utility library for gitignore style pattern matching of file paths."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pathspec-0.12.1-py3-none-any.whl", hash = "sha256:a0d503e138a4c123b27490a4f7beda6a01c6f288df0e4a8b79c7eb0dc7b4cc08"},
+    {file = "pathspec-0.12.1.tar.gz", hash = "sha256:a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712"},
+]
+
+[[package]]
 name = "platformdirs"
 version = "4.2.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -530,13 +535,13 @@ files = [
 
 [[package]]
 name = "pre-commit"
-version = "3.6.2"
+version = "3.7.1"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "pre_commit-3.6.2-py2.py3-none-any.whl", hash = "sha256:ba637c2d7a670c10daedc059f5c49b5bd0aadbccfcd7ec15592cf9665117532c"},
-    {file = "pre_commit-3.6.2.tar.gz", hash = "sha256:c3ef34f463045c88658c5b99f38c1e297abdcc0ff13f98d3370055fbbfabc67e"},
+    {file = "pre_commit-3.7.1-py2.py3-none-any.whl", hash = "sha256:fae36fd1d7ad7d6a5a1c0b0d5adb2ed1a3bda5a21bf6c3e5372073d7a11cd4c5"},
+    {file = "pre_commit-3.7.1.tar.gz", hash = "sha256:8ca3ad567bc78a4972a3f1a477e94a79d4597e8140a6e0b651c5e33899c3654a"},
 ]
 
 [package.dependencies]
@@ -1093,4 +1098,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<4.0"
-content-hash = "74bc02ba72f2706eea51614fe09f085f217ddafaf60e19edc53c3bacb9261b8d"
+content-hash = "648f80923a163d9acd81d3a6d75386571ae178fa4519bf93bde3d41d9ddf5db6"
