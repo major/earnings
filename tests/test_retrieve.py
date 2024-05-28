@@ -14,7 +14,7 @@ def test_get_page():
 @pytest.mark.vcr()
 def test_build_queue():
     """Test build_queue function."""
-    queue = build_queue(562556223)
-    assert len(queue) == 14
+    queue = build_queue(574398129)
+    assert len(queue) == 10
     assert queue[0]["id"] > queue[1]["id"]
-    assert 562556223 not in [x["id"] for x in queue]
+    assert 574398129 not in [x["id"] for x in queue]
